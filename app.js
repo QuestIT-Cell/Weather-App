@@ -20,7 +20,7 @@ app.post("/", function (req, res) {
     const url = "https://api.openweathermap.org/data/2.5/weather?q=" + query + "&appid=" + apikey + "&units=" + unit;
 
     // GETTING the data from the API by HTTPS request
-    https.get(url, function (response) {
+    https.get(url, (response) => {
         console.log(response.statusCode);
 
         // DATA is shown in the console...
@@ -37,9 +37,16 @@ app.post("/", function (req, res) {
             const icon = weatherData.weather[0].icon;
             const imageURL = "https://openweathermap.org/img/wn/" + icon + "@2x.png";
 
+            res.write('<html><head><style>');
+            res.write('body { text-align: center; background: #32329d;}');
+            res.write('body {display: flex;justify-content: center;align-items: center;flex-direction: column;}');
+            res.write('h1 { color: #F1FFFA; font-size: 4rem }');
+            res.write('h2 { color: #F1FFFA; font-size: 3rem }');
+            res.write('</style></head><body>');
+
             console.log("Tempeature : " + temp);
             console.log("Weather Description : " + weatherDesp);
-            console.log(icon)
+            console.log("Weather Condition Icon : " + icon);
 
             // res.write("<h2>The temperature in London is " + temp + " degrees celcius</h2>");
             // res.write("<h3>The weather condition in London is " + weatherDesp + " 🚬</h3>");
@@ -50,28 +57,6 @@ app.post("/", function (req, res) {
         })
     })
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 app.listen(3000, function () {
     console.log("Server is running on port 3000 !!");
